@@ -20,3 +20,11 @@
 不是。Java中的基本数据类型只有8个：byte、short、int、long、float、double、char、boolean；除了基本类型（primitive type），剩下的都是引用类型（reference type），Java 5以后引入的枚举类型也算是一种比较特殊的引用类型
 
 #### 4. float f=3.4;是否正确?
+不正确。3.4是双精度数，将双精度型（double）赋值给浮点型（float）属于**向下转型**（down-casting，也称为窄化）会造成精度损失，因此需要强制类型转换`float f =(float)3.4;` 或者写成`float f =3.4F;`
+既然有**向下转型**, 那么也有**向上转型**, 向上转型如下: 
+1. 把子类对象直接赋给父类引用叫upcasting向上转型，向上转型不用强制转型。如`Father father = new Son();`
+2. upcasting 会丢失子类特有的方法,但是子类overriding 父类的方法，子类方法有效，向上转型只能引用父类对象的属性，要引用子类对象属性，则要写getter函数。
+3. 向上转型的作用，减少重复代码，父类为参数，调有时用子类作为参数，就是利用了向上转型。这样使代码变得简洁。体现了JAVA的抽象编程思想。
+
+#### 5. short s1 = 1; s1 = s1 + 1;有错吗?short s1 = 1; s1 += 1;有错吗?
+对于short s1 = 1; s1 = s1 + 1;由于1是int类型，因此s1+1运算结果也是int 型，需要强制转换类型才能赋值给short型。而short s1 = 1; s1 += 1;可以正确编译，因为s1+= 1;相当于s1 = (short)(s1 + 1);其中有隐含的强制类型转换
