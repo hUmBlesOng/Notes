@@ -156,3 +156,22 @@ switch只支持int，String，enum类型，由于java的自动转型，所以byt
 
 ### 16、两个对象值相同(x.equals(y) == true)，但却可有不同的hash code，这句话对不对？
 不对，如果两个对象x和y满足x.equals(y) == true，它们的哈希码（hash code）应当相同。Java对于eqauls方法和hashCode方法是这样规定的：(1)如果两个对象相同（equals方法返回true），那么它们的hashCode值一定要相同；(2)如果两个对象的hashCode相同，它们并不一定相同。
+>关于equals方法，它必须满足**自反性**（x.equals(x)必须返回true）、**对称性**（x.equals(y)返回true时，y.equals(x)也必须返回true）、**传递性**（x.equals(y)和y.equals(z)都返回true时，x.equals(z)也必须返回true）和**一致性**（当x和y引用的对象信息没有被修改时，多次调用x.equals(y)应该得到同样的返回值），而且对于任何非null值的引用x，x.equals(null)必须返回false。实现高质量的equals方法的诀窍包括：1. 使用==操作符检查"参数是否为这个对象的引用"；2. 使用instanceof操作符检查"参数是否为正确的类型"；3. 对于类中的关键属性，检查参数传入对象的属性是否与之相匹配；4. 编写完equals方法后，问自己它是否满足对称性、传递性、一致性；5. 重写equals时总是要重写hashCode；6. 不要将equals方法参数中的Object对象替换为其他的类型，在重写时不要忘掉@Override注解。
+
+### 17、是否可以继承String类？
+String 类是final类，不可以被继承。
+
+### 18、当一个对象被当作参数传递到一个方法后，此方法可改变这个对象的属性，并可返回变化后的结果，那么这里到底是值传递还是引用传递？
+是值传递。Java语言的方法调用只支持参数的值传递。当一个对象实例作为一个参数被传递到方法中时，参数的值就是对该对象的引用。对象的属性可以在被调用过程中被改变，但对对象引用的改变是不会影响到调用者的。
+
+### 19、String和StringBuilder、StringBuffer的区别？
+- String是只读字符串，也就意味着String引用的字符串内容是不能被改变的。
+- StringBuilder类的对象可以直接进行修改。StringBuilder没有被synchronized修饰，因此它的效率比StringBuffer要高。
+- StringBuffer和StringBuilder的方法完全相同。StringBuffer的所有方法都被synchronized修饰，所以它是线程安全的。
+
+### 20、重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？
+方法的重载和重写都是实现多态的方式，区别在于前者实现的是编译时的多态性，而后者实现的是运行时的多态性。
+1. 重载发生在一个类中，同名的方法如果有不同的参数列表（参数类型不同、参数个数不同或者二者都不同）则视为重载；重写发生在子类与父类之间。
+2. 重写要求子类被重写方法与父类被重写方法有相同的返回类型，比父类被重写方法更好访问，不能比父类被重写方法声明更多的异常（里氏代换原则）。重载对返回类型没有特殊的要求。
+
+### 21、描述一下JVM加载class文件的原理机制？
