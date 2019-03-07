@@ -74,7 +74,7 @@ public static Integer valueOf(int i) {
 IntegerCache是Integer的内部类，其代码如下所示：
 
 ``` java
-	/**
+/**
      * Cache to support the object identity semantics of autoboxing for values between
      * -128 and 127 (inclusive) as required by JLS.
      *
